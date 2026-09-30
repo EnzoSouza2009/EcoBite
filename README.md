@@ -1,4 +1,4 @@
-EcoBite 🌿🍎
+# EcoBite 🌿🍎
 EcoBite é uma aplicação desenvolvida em Flutter focada no combate ao desperdício de alimentos. A plataforma permite gerir os itens da despensa, acompanhar datas de validade através de alertas visuais, registar o destino dos alimentos (consumo vs. descarte) e obter recomendações de receitas personalizadas com base nos ingredientes disponíveis.
 
 🚀 Funcionalidades Principais
