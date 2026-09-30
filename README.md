@@ -50,7 +50,7 @@ lib/
 ├── services/             
 └── views/                
 
-models: Modelos de dados (Alimento, HistoricoBaixa, Receita) /n
+models: Modelos de dados (Alimento, HistoricoBaixa, Receita)/
 providers: Estado global e regras de negócio (DespensaProvider)
 routes: Configuração centralizada de rotas (AppRoutes)
 services: Comunicação com APIs e Base de Dados (DatabaseService, SpoonacularService, etc.)
