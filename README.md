@@ -44,16 +44,21 @@ Open Food Facts API
 📁 Estrutura do Projeto
 Plaintext
 lib/
+
 ├── models/             
 ├── providers/            
 ├── routes/               
 ├── services/             
 └── views/                
 
-models: Modelos de dados (Alimento, HistoricoBaixa, Receita)/
+models: Modelos de dados (Alimento, HistoricoBaixa, Receita)
+
 providers: Estado global e regras de negócio (DespensaProvider)
+
 routes: Configuração centralizada de rotas (AppRoutes)
+
 services: Comunicação com APIs e Base de Dados (DatabaseService, SpoonacularService, etc.)
+
 views: Ecrãs da aplicação (Despensa, Cadastro, Estatísticas, Receitas)
 
 
