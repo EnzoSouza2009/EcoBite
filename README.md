@@ -78,17 +78,19 @@ git clone https://github.com/seu-usuario/ecobite.git
 cd ecobite
 Instalar as dependências:
 
-Bash
+```bash
 flutter pub get
 Executar na Web (Navegador):
+```
 
-Bash
+```bash
 flutter run -d edge
 # ou
 flutter run -d chrome
 Executar no Dispositivo Móvel:
+```
 
-Bash
+```bash
 flutter run
 🔑 Configuração de API (Opcional)
 Para habilitar a busca completa de receitas em tempo real via API externa:
