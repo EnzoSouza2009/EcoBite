@@ -1,48 +1,102 @@
-Markdown# EcoBite 🌿🍎
+# EcoBite 🌿🍎
+EcoBite é uma aplicação desenvolvida em Flutter focada no combate ao desperdício de alimentos. A plataforma permite gerir os itens da despensa, acompanhar datas de validade através de alertas visuais, registar o destino dos alimentos (consumo vs. descarte) e obter recomendações de receitas personalizadas com base nos ingredientes disponíveis.
 
-> Aplicação em Flutter desenvolvida para o combate ao desperdício alimentar, permitindo a gestão inteligente da despensa, alertas de validade, registo de consumos/descartes e sugestão de receitas baseadas nos ingredientes disponíveis.
-🎯 Sobre o ProjetoO EcoBite é uma solução completa para organizar alimentos em casa, priorizar o consumo de itens próximos do vencimento e gerar métricas sobre hábitos de consumo contra desperdício de comida.🚀 Como Executar o ProjetoClonar o repositório:Bashgit clone [https://github.com/seu-usuario/ecobite.git](https://github.com/seu-usuario/ecobite.git)
+🚀 Funcionalidades Principais
+📦 Gestão de Despensa: Registo manual de alimentos e suporte para leitura de código de barras (via Open Food Facts).
+
+⏳ Acompanhamento de Validades: Notificação visual semafórica baseada no tempo restante para o vencimento:
+
+🔴 Crítico: Vencido ou vence hoje.
+
+🟠 Atenção: Vence em até 3 dias.
+
+🟢 Normal: Dentro do prazo de validade.
+
+📉 Registo de Baixa Obrigatório: Registo de saídas de stock especificando a quantidade e o motivo (Consumido ou Descartado).
+
+📊 Estatísticas e Métricas: Painel visual para acompanhamento da taxa de consumo contra a taxa de desperdício.
+
+🍳 Sugestão de Receitas: Integração com a API da Spoonacular para recomendar receitas utilizando prioritarimente os alimentos que estão prestes a vencer, contando com suporte a fallback local para funcionamento offline.
+
+🌐 Suporte Multiplataforma (Dual-Database): Persistência de dados nativa em SQLite para dispositivos móveis (Android/iOS) e suporte a armazenamento em memória para execução na Web (localhost).
+
+🛠️ Tecnologias Utilizadas
+Framework: Flutter (Dart)
+
+Gestão de Estado: Provider
+
+Navegação & Rotas: Rotas nomeadas centralizadas (AppRoutes)
+
+Base de Dados:
+
+sqflite (Ambiente Mobile)
+
+Memória Volátil / kIsWeb (Ambiente Web)
+
+Consumo de APIs:
+
+http
+
+Spoonacular API
+
+Open Food Facts API
+
+📁 Estrutura do Projeto
+
+Plaintext
+lib/
+
+├── models/             
+├── providers/            
+├── routes/               
+├── services/             
+└── views/                
+
+models: Modelos de dados (Alimento, HistoricoBaixa, Receita)
+
+providers: Estado global e regras de negócio (DespensaProvider)
+
+routes: Configuração centralizada de rotas (AppRoutes)
+
+services: Comunicação com APIs e Base de Dados (DatabaseService, SpoonacularService, etc.)
+
+views: Ecrãs da aplicação (Despensa, Cadastro, Estatísticas, Receitas)
+
+
+
+🔧 Como Executar o Projeto
+Pré-requisitos
+Flutter SDK instalado.
+
+Navegador (Google Chrome ou Microsoft Edge) ou emulador Android/iOS configurado.
+
+Passos
+Clonar o repositório:
+
+Bash
+git clone https://github.com/seu-usuario/ecobite.git
 cd ecobite
-Instalar as dependências:Bashflutter pub get
-Executar no Navegador (Web / Localhost):Bashflutter run -d edge
+Instalar as dependências:
+
+Bash
+flutter pub get
+Executar na Web (Navegador):
+
+Bash
+flutter run -d edge
 # ou
 flutter run -d chrome
-Executar num Dispositivo Móvel:Bashflutter run
-💡 Nota sobre cache na Web: O Flutter Web pode guardar cache agressivo de build no navegador. Se uma alteração não surgir após o reinício, execute flutter clean e depois flutter pub get antes de executar novamente.🧱 Estrutura do projetoPlaintextlib/
-├── main.dart                          # MaterialApp, rotas nomeadas, MultiProvider
-├── models/
-│   ├── alimento_model.dart            # Modelo Alimento (parse JSON / Map SQLite)
-│   ├── historico_baixa_model.dart     # Modelo de registo de baixa (Consumido/Descartado)
-│   └── receita_model.dart             # Modelo de receita da Spoonacular
-├── services/
-│   ├── database_service.dart          # Singleton + SQL puro (SQLite mobile / memória Web)
-│   ├── open_food_facts_service.dart   # Integração com API Open Food Facts (código de barras)
-│   └── spoonacular_service.dart       # "SpoonacularService" — chamadas HTTP + fallback local
-├── providers/
-│   └── despensa_provider.dart         # Estado da Despensa (CRUD, baixas e histórico)
-├── routes/
-│   └── app_routes.dart                # Centralização das rotas nomeadas da aplicação
-└── views/
-    ├── despensa_screen.dart           # RF03, RF04, RF07 — lista da despensa, alertas e baixa
-    ├── cadastro_alimento_screen.dart  # RF01, RF02 — formulário e scanner de código de barras
-    ├── estatisticas_screen.dart       # RF08 — métricas de consumo vs descarte
-    └── receitas_screen.dart           # RF05, RF06 — recomendações e detalhes de receitas
-🗺️ Rotas nomeadasRotaTela/Home (DespensaScreen) — lista de alimentos ordenados por validade/cadastroCadastro (CadastroAlimentoScreen) — formulário manual e código de barras/estatisticasEstatísticas (EstatisticasScreen) — gráficos de consumo vs. descarte/receitasReceitas (ReceitasScreen) — sugestões com base na despensa📱 💻 Responsividade< 700px (celular): AppBar com ações de navegação + lista de cards com indicador semafórico de validade + FloatingActionButton para acesso rápido ao cadastro.700–1099px (tablet): Diálogos modais centralizados e adaptativos para ajuste de quantidade e seleção do motivo da baixa.≥ 1100px (desktop / janela larga no navegador): Layout estendido em localhost com visualização panorâmica da despensa e navegação rápida entre relatórios estatísticos e receitas.💾 Banco de dados (SQLite)Duas tabelas, mesmo padrão (DatabaseService singleton + SQL puro no Mobile / armazenamento em memória com kIsWeb na Web):SQLCREATE TABLE alimentos (
-  id TEXT PRIMARY KEY,
-  nome TEXT NOT NULL,
-  categoria TEXT NOT NULL,
-  dataValidade TEXT NOT NULL,
-  quantidade REAL NOT NULL,
-  unidadeMedida TEXT NOT NULL,
-  fotoUrl TEXT
-);
+Executar no Dispositivo Móvel:
 
-CREATE TABLE historico_baixas (
-  id TEXT PRIMARY KEY,
-  alimentoId TEXT NOT NULL,
-  nomeAlimento TEXT NOT NULL,
-  quantidade REAL NOT NULL,
-  motivo TEXT NOT NULL,
-  dataBaixa TEXT NOT NULL
-);
-id PRIMARY KEY garante que cada item e registo de histórico tenham identificadores únicos sem duplicidade (ConflictAlgorithm.replace).A tabela historico_baixas guarda a quantidade e o motivo obrigatório (Consumido ou Descartado) em cada remoção de estoque para alimentar a tela de estatísticas (RN05).Suporte Dual (Web/Mobile): Ao executar no navegador, a aplicação alterna automaticamente para persistência em memória volátil, evitando erros de suporte do driver SQLite nativo.🌐 Sobre a busca de receitas no SpoonacularSpoonacularService.buscarReceitasPorIngredientes cruza os alimentos presentes na despensa para sugerir receitas personalizadas, priorizando os produtos prestes a vencer (RN02). Se a API externa estiver sem chave, indisponível ou com limite de requisições excedido, o serviço aciona um fallback com catálogo local de receitas para garantir que a interface continue funcional sem exibir erros ao utilizador.✅ Requisitos atendidosRF01 Cadastrar Alimento — formulário manual com validação de campos na rota /cadastroRF02 Leitura de Código de Barras — consulta via API Open Food Facts para preenchimento automáticoRF03 Listar Despensa — ordenação automática dos alimentos por data de vencimento na rota /RF04 Dar Baixa no Estoque — diálogo com quantidade customizada e seleção do motivo (RN05)RF05 Recomendar Receitas — consulta por ingredientes via Spoonacular ou catálogo local na rota /receitasRF06 Detalhar Receita — exibição expandida com ingredientes necessários e modo de preparoRF07 Alertas Visuais de Validade — indicador por cores (Verde: Normal | Laranja: ≤ 3 dias | Vermelho: Vencido/Hoje)RF08 Estatísticas e Métricas — painel visual com taxa de consumo vs. descarte na rota /estatisticas
+Bash
+flutter run
+🔑 Configuração de API (Opcional)
+Para habilitar a busca completa de receitas em tempo real via API externa:
+
+Registe-se em Spoonacular API Console para obter uma chave gratuita.
+
+Adicione a sua chave no ficheiro lib/services/spoonacular_service.dart:
+
+Dart
+static const String _apiKey = 'SUA_CHAVE_AQUI';
+(Nota: Se a chave não for informada ou houver falha de conexão, a aplicação utilizará automaticamente o catálogo interno de receitas de contingência).
