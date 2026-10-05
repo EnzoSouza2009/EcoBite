@@ -1,104 +1,155 @@
-# EcoBite 🌿🍎
-EcoBite é uma aplicação desenvolvida em Flutter focada no combate ao desperdício de alimentos. A plataforma permite gerir os itens da despensa, acompanhar datas de validade através de alertas visuais, registar o destino dos alimentos (consumo vs. descarte) e obter recomendações de receitas personalizadas com base nos ingredientes disponíveis.
+<div align="center">
 
-🚀 Funcionalidades Principais
-📦 Gestão de Despensa: Registo manual de alimentos e suporte para leitura de código de barras (via Open Food Facts).
+# 🌿 EcoBite 🍎
 
-⏳ Acompanhamento de Validades: Notificação visual semafórica baseada no tempo restante para o vencimento:
+**Menos desperdício, mais aproveitamento.**
 
-🔴 Crítico: Vencido ou vence hoje.
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-🟠 Atenção: Vence em até 3 dias.
+![Stars](https://img.shields.io/github/stars/SeuUser/ecobite?style=social)
+![License](https://img.shields.io/github/license/SeuUser/ecobite)
+![Top Language](https://img.shields.io/github/languages/top/SeuUser/ecobite)
 
-🟢 Normal: Dentro do prazo de validade.
+</div>
 
-📉 Registo de Baixa Obrigatório: Registo de saídas de stock especificando a quantidade e o motivo (Consumido ou Descartado).
+---
 
-📊 Estatísticas e Métricas: Painel visual para acompanhamento da taxa de consumo contra a taxa de desperdício.
+## 📖 Sobre o projeto
 
-🍳 Sugestão de Receitas: Integração com a API da Spoonacular para recomendar receitas utilizando prioritarimente os alimentos que estão prestes a vencer, contando com suporte a fallback local para funcionamento offline.
+O **EcoBite** é uma aplicação desenvolvida em **Flutter** focada no combate ao desperdício de alimentos. A plataforma permite gerenciar os itens da despensa, acompanhar datas de validade por meio de alertas visuais, registrar o destino dos alimentos (**consumo vs. descarte**) e obter recomendações de receitas personalizadas com base nos ingredientes disponíveis.
 
-🌐 Suporte Multiplataforma (Dual-Database): Persistência de dados nativa em SQLite para dispositivos móveis (Android/iOS) e suporte a armazenamento em memória para execução na Web (localhost).
+![Preview](https://link-da-imagem.com/preview.png)
 
-🛠️ Tecnologias Utilizadas
-Framework: Flutter (Dart)
+---
 
-Gestão de Estado: Provider
+## 🚀 Funcionalidades principais
 
-Navegação & Rotas: Rotas nomeadas centralizadas (AppRoutes)
+- 📦 **Gestão de despensa:** cadastro manual de alimentos e leitura de código de barras (via Open Food Facts).
+- ⏳ **Acompanhamento de validades:** alerta visual semafórico conforme o tempo restante até o vencimento.
+- 📉 **Registro de baixa obrigatório:** toda saída de estoque informa a quantidade e o motivo (*Consumido* ou *Descartado*).
+- 📊 **Estatísticas e métricas:** painel visual com a taxa de consumo contra a taxa de desperdício, incluindo um gráfico por alimento.
+- 🍳 **Sugestão de receitas:** integração com a API da Spoonacular, priorizando os alimentos que estão prestes a vencer. Títulos, ingredientes e modo de preparo são traduzidos para português, e há um catálogo local de contingência para quando a API estiver indisponível.
+- 🌐 **Suporte multiplataforma (dual-database):** persistência nativa em SQLite no mobile (Android/iOS) e armazenamento em memória na Web (localhost).
 
-Base de Dados:
+### 🚦 Semáforo de validade
 
-sqflite (Ambiente Mobile)
+| Status | Cor | Regra |
+|--------|-----|-------|
+| **Crítico** | 🔴 | Vencido ou vence hoje |
+| **Atenção** | 🟠 | Vence em até 3 dias |
+| **Normal** | 🟢 | Dentro do prazo de validade |
 
-Memória Volátil / kIsWeb (Ambiente Web)
+---
 
-Consumo de APIs:
+## 🛠️ Tecnologias utilizadas
 
-http
+| Categoria | Tecnologia |
+|-----------|------------|
+| Framework | Flutter (Dart) |
+| Gerenciamento de estado | Provider |
+| Navegação | Rotas nomeadas centralizadas (`AppRoutes`) |
+| Banco de dados | `sqflite` (mobile) e memória volátil via `kIsWeb` (web) |
+| Consumo de APIs | `http` |
+| Gráficos | `fl_chart` |
+| Leitura de código de barras | `mobile_scanner` |
 
-Spoonacular API
+### 🔌 APIs externas
 
-Open Food Facts API
+- 🍳 [Spoonacular API](https://spoonacular.com/food-api): busca de receitas por ingredientes.
+- 🥫 [Open Food Facts](https://world.openfoodfacts.org/): dados de produtos por código de barras.
+- 🌐 [MyMemory](https://mymemory.translated.net/): tradução das receitas para português.
 
-📁 Estrutura do Projeto
+---
 
-Plaintext
+## 📁 Estrutura do projeto
+
+```text
 lib/
+├── models/
+├── providers/
+├── routes/
+├── services/
+├── theme/
+├── views/
+├── widgets/
+└── main.dart
+```
 
-├── models/             
-├── providers/            
-├── routes/               
-├── services/             
-└── views/                
+- **`models`**: modelos de dados (`Alimento`, `HistoricoBaixa`, `Receita`).
+- **`providers`**: estado global e regras de negócio (`DespensaProvider`).
+- **`routes`**: configuração centralizada de rotas (`AppRoutes`).
+- **`services`**: comunicação com APIs e banco de dados (`DatabaseService`, `SpoonacularService`, `OpenFoodFactsService`, `TranslationService`).
+- **`theme`**: identidade visual do app (`AppTheme`).
+- **`views`**: telas da aplicação (Despensa, Cadastro, Estatísticas, Receitas).
+- **`widgets`**: componentes reutilizáveis (barra de navegação inferior).
 
-models: Modelos de dados (Alimento, HistoricoBaixa, Receita)
+---
 
-providers: Estado global e regras de negócio (DespensaProvider)
+## 🔧 Como executar o projeto
 
-routes: Configuração centralizada de rotas (AppRoutes)
+### Pré-requisitos
 
-services: Comunicação com APIs e Base de Dados (DatabaseService, SpoonacularService, etc.)
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) instalado.
+- Navegador (Google Chrome ou Microsoft Edge) **ou** emulador Android/iOS configurado.
 
-views: Ecrãs da aplicação (Despensa, Cadastro, Estatísticas, Receitas)
+### Passo a passo
 
+1. Clone o repositório:
 
-
-🔧 Como Executar o Projeto
-Pré-requisitos
-Flutter SDK instalado.
-
-Navegador (Google Chrome ou Microsoft Edge) ou emulador Android/iOS configurado.
-
-Passos
-Clonar o repositório:
-
-Bash
+```bash
 git clone https://github.com/seu-usuario/ecobite.git
 cd ecobite
-Instalar as dependências:
+```
+
+2. Instale as dependências:
 
 ```bash
 flutter pub get
-Executar na Web (Navegador):
 ```
+
+3. Execute na Web (navegador):
 
 ```bash
 flutter run -d edge
 # ou
 flutter run -d chrome
-Executar no Dispositivo Móvel:
 ```
+
+4. Execute em um dispositivo móvel:
 
 ```bash
 flutter run
-🔑 Configuração de API (Opcional)
-Para habilitar a busca completa de receitas em tempo real via API externa:
+```
 
-Registe-se em Spoonacular API Console para obter uma chave gratuita.
+---
 
-Adicione a sua chave no ficheiro lib/services/spoonacular_service.dart:
+## 🔑 Configuração de API (opcional)
 
-Dart
+Para habilitar a busca completa de receitas em tempo real:
+
+1. Cadastre-se no [Spoonacular API Console](https://spoonacular.com/food-api/console) e obtenha uma chave gratuita.
+2. Adicione a sua chave no arquivo `lib/services/spoonacular_service.dart`:
+
+```dart
 static const String _apiKey = 'SUA_CHAVE_AQUI';
-(Nota: Se a chave não for informada ou houver falha de conexão, a aplicação utilizará automaticamente o catálogo interno de receitas de contingência).
+```
+
+> ⚠️ **Atenção:** nunca publique a sua chave real no GitHub. Use uma chave de teste ou mantenha-a fora do repositório.
+
+> 📝 **Nota:** se a chave não for informada ou houver falha de conexão, a aplicação usa automaticamente o catálogo interno de receitas de contingência.
+
+---
+
+## 🌟 Dica final
+
+Cada alimento aproveitado é menos lixo no planeta. 🌍 Use o **EcoBite** para comprar melhor, cozinhar mais e desperdiçar menos!
+
+---
+
+<div align="center">
+
+Feito com 💚 e Flutter
+
+</div>
