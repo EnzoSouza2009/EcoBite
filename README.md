@@ -68,28 +68,28 @@ O **EcoBite** é uma aplicação desenvolvida em **Flutter** focada no combate a
 ```text
 lib/
 ├── models/
-  ├── alimento_model.dart
-  ├── historico_baixa.dart
-  ├── receita_model.dart
+|  ├── alimento_model.dart
+|  ├── historico_baixa.dart
+|  ├── receita_model.dart
 ├── providers/
-  ├── despensa_provider.dart
+|  ├── despensa_provider.dart
 ├── routes/
-  ├── app_routes.dart
+|  ├── app_routes.dart
 ├── services/
-  ├── database_serivce.dart
-  ├── open_food_facts_service.dart
-  ├── spoonacular_service.dart
-  ├── translation_service.dart
+|  ├── database_serivce.dart
+|  ├── open_food_facts_service.dart
+|  ├── spoonacular_service.dart
+|  ├── translation_service.dart
 ├── theme/
-  ├── app_theme.dart
+|  ├── app_theme.dart
 ├── views/
-  ├── cadastro_alimento_screnn.dart
-  ├── despensa_screen.dart
-  ├── estatisticas_screen.dart
-  ├──receitas_screen.dart
+|  ├── cadastro_alimento_screnn.dart
+|  ├── despensa_screen.dart
+|  ├── estatisticas_screen.dart
+|  ├──receitas_screen.dart
 ├── widgets/
-  ├── app_bottom.dart
-  ├── receita_card.dart
+|  ├── app_bottom.dart
+|  ├── receita_card.dart
 └── main.dart
 ```
 
